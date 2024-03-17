@@ -8,16 +8,44 @@
 npm install -g aws-cdk
 ```
 
+[ブートストラップ](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/bootstrapping.html)（デプロイする環境を準備するコマンド。最初に 1 回だけ実行する必要がある）
+
+```bash
+cdk bootstrap aws://ACCOUNT-NUMBER-1/REGION-1
+```
+
 <br/>
 
-### コマンドの使用
+### コマンド
 
-- `npm run build` compile typescript to js
-- `npm run watch` watch for changes and compile
-- `npm run test` perform the jest unit tests
-- `npx cdk deploy` deploy this stack to your default AWS account/region
-- `npx cdk diff` compare deployed stack with current state
-- `npx cdk synth` emits the synthesized CloudFormation template
+```bash
+# アプリケーションの開始
+cdk init app --language typescript
+
+# アプリケーションの構築
+npm run build
+
+# アプリケーション内のスタックを一覧表示
+cdk ls
+
+# CloudFormationテンプレートを作成
+cdk synth
+
+# スタックをデプロイ
+cdk deploy
+
+
+# 変更の監視とコンパイル
+npm run watch
+
+# Jestのテストを実行
+npm run test
+
+# スタックの比較
+cdk diff
+
+
+```
 
 <br/>
 
