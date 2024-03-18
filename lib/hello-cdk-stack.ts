@@ -1,22 +1,43 @@
 import * as cdk from 'aws-cdk-lib';
 import { aws_s3 as s3 } from 'aws-cdk-lib';
 import { aws_lambda as lambda } from 'aws-cdk-lib';
+import { aws_apigateway as apigateway } from 'aws-cdk-lib'; // API Gateway をインポート
 
 export class HelloCdkStack extends cdk.Stack {
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
-        new s3.Bucket(this, 'MyFirstBucket', {
+        // S3 バケットの作成
+        const bucket = new s3.Bucket(this, 'MyFirstBucket', {
             versioned: true,
             removalPolicy: cdk.RemovalPolicy.DESTROY,
             autoDeleteObjects: true,
         });
 
-        new lambda.Function(this, 'MyFunction', {
+        // Lambda 関数の作成
+        const lambdaFunction = new lambda.Function(this, 'MyFunction', {
             runtime: lambda.Runtime.NODEJS_18_X,
             handler: 'index.handler',
             code: lambda.Code.fromAsset('lambda/hello'),
         });
+
+        // API Gateway の作成
+        const api = new apigateway.RestApi(this, 'MyApi', {
+            restApiName: 'My Service',
+            description: 'This service serves as a backend for ...',
+            deployOptions: {
+                stageName: 'prod', // デプロイステージの設定
+            },
+        });
+
+        // Lambda をバックエンドとするリソースの追加
+        const lambdaIntegration = new apigateway.LambdaIntegration(lambdaFunction, {
+            requestTemplates: { 'application/json': '{ "statusCode": "200" }' },
+        });
+
+        // API Gateway にリソースとメソッドを追加
+        const lambdaResource = api.root.addResource('lambda');
+        lambdaResource.addMethod('GET', lambdaIntegration); // GET リクエストを Lambda 関数に紐付け
     }
 }
 

@@ -47,6 +47,9 @@ npm run test
 # スタックの比較
 cdk diff
 
+# AWS SAMを利用したAPIエンドポイントの起動
+sam local start-api -t ./cdk.out/HelloCdkStack.template.json
+
 # AWS SAMを利用したLambda関数の実行
 sam local invoke MyFunction --no-event -t ./cdk.out/HelloCdkStack.template.json
 
