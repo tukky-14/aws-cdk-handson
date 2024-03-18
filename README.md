@@ -31,6 +31,9 @@ cdk ls
 # CloudFormationテンプレートを作成
 cdk synth
 
+# CloudFormationテンプレートを作成（アセット（Lambda 関数のコードや Docker イメージなど）を S3 バケットにアップロード（ステージング）するプロセスがスキップ）
+cdk synth --no-staging
+
 # スタックをデプロイ
 cdk deploy
 
@@ -44,6 +47,8 @@ npm run test
 # スタックの比較
 cdk diff
 
+# AWS SAMを利用したLambda関数の実行
+sam local invoke MyFunction --no-event -t ./cdk.out/HelloCdkStack.template.json
 
 ```
 

@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { aws_s3 as s3 } from 'aws-cdk-lib';
+import { aws_lambda as lambda } from 'aws-cdk-lib';
 
 export class HelloCdkStack extends cdk.Stack {
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -9,6 +10,12 @@ export class HelloCdkStack extends cdk.Stack {
             versioned: true,
             removalPolicy: cdk.RemovalPolicy.DESTROY,
             autoDeleteObjects: true,
+        });
+
+        new lambda.Function(this, 'MyFunction', {
+            runtime: lambda.Runtime.NODEJS_18_X,
+            handler: 'index.handler',
+            code: lambda.Code.fromAsset('lambda/hello'),
         });
     }
 }
