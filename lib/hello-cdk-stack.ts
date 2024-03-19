@@ -8,11 +8,11 @@ export class HelloCdkStack extends cdk.Stack {
         super(scope, id, props);
 
         // S3 バケットの作成
-        const bucket = new s3.Bucket(this, 'MyFirstBucket', {
-            versioned: true,
-            removalPolicy: cdk.RemovalPolicy.DESTROY,
-            autoDeleteObjects: true,
-        });
+        // const bucket = new s3.Bucket(this, 'MyFirstBucket', {
+        //     versioned: true,
+        //     removalPolicy: cdk.RemovalPolicy.DESTROY,
+        //     autoDeleteObjects: true,
+        // });
 
         // Lambda 関数の作成
         const lambdaFunction = new lambda.Function(this, 'MyFunction', {
