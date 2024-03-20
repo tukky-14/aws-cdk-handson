@@ -14,22 +14,25 @@ async function runCommand(file) {
 
     try {
         // cdk synth コマンドを実行し、CloudFormation テンプレートを生成
-        const { stderr: err1 } = await exec(`cdk synth --no-staging -a "npx ts-node ${filePath}"`);
-        console.log(`Done ${filePath}`);
-        console.error(`cdk synth err: ${err1}`);
-
-        // API Gateway のエンドポイントを取得
-        const { stderr: err2 } = await exec(
-            `sam local start-api -t ./cdk.out/${file.toUpperCase()}CdkStack.template.json`
+        const { stderr } = await exec(`cdk synth --no-staging -a "npx ts-node ${filePath}"`);
+        console.log(`${filePath}をベースにCLoudFormationテンプレートを生成しました。\n`);
+        if (stderr.length > 2) {
+            console.error(`cdk synth err: ${stderr}`);
+            return;
+        }
+        console.log(
+            `【Lambda関数を実行するコマンド】\nsam local invoke -e events/event.json -t ./cdk.out/${file.toUpperCase()}CdkStack.template.json\n`
         );
-        console.error(`start-api err: ${err2}`);
+        console.log(
+            `【APIエンドポイントを起動するコマンド】\nsam local start-api -t ./cdk.out/${file.toUpperCase()}CdkStack.template.json\n`
+        );
     } catch (err) {
         console.error(`exec error: ${err}`);
         rl.close();
     }
 }
 
-rl.question('APIエンドポイントを起動するスタックの名前を入力してください: ', (stackName) => {
+rl.question('CloudFormationテンプレートを作成するスタック名を入力してください: ', (stackName) => {
     if (!/^[a-z0-9]+$/.test(stackName)) {
         console.log('スタック名は小文字英数字のみを使用できます。');
         rl.close();
