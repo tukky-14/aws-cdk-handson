@@ -15,7 +15,7 @@ async function runCommand(file) {
     try {
         // cdk synth コマンドを実行し、CloudFormation テンプレートを生成
         const { stderr } = await exec(`cdk synth --no-staging -a "npx ts-node ${filePath}"`);
-        console.log(`${filePath}をベースにCLoudFormationテンプレートを生成しました。\n`);
+        console.log(`${filePath}をベースにCloudFormationテンプレートを生成しました。\n`);
         if (stderr.length > 2) {
             console.error(`cdk synth err: ${stderr}`);
             return;

@@ -11,7 +11,8 @@
         "cdk": "cdk",
         "add-stack": "node scripts/add-stack.js",
         "synth": "node scripts/synth.js",
-        "synth-all": "node scripts/synth-all.js"
+        "synth-all": "node scripts/synth-all.js",
+        "stack-combine": "node scripts/combine.js"
     },
     "devDependencies": {
         "@types/jest": "^29.5.12",

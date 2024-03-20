@@ -5,7 +5,7 @@ const path = require('path');
 const templateFiles = fs
     .readdirSync('./cdk.out/')
     .filter((file) => file.endsWith('.template.json'));
-const templatePaths = templateFiles.map((file) => `./cdk.out/${file}`);
+const templatePaths = templateFiles.map((file) => `../cdk.out/${file}`);
 
 let combinedTemplate = {
     Resources: {},
@@ -19,4 +19,8 @@ templatePaths.forEach((templatePath) => {
 fs.writeFileSync(
     './cdk.out/CombinedStack.template.json',
     JSON.stringify(combinedTemplate, null, 2)
+);
+
+console.log(
+    `【APIエンドポイントを起動するコマンド】\nsam local start-api -t ./cdk.out/CombinedStack.template.json\n`
 );
