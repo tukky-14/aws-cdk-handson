@@ -16,7 +16,7 @@ cdk bootstrap aws://ACCOUNT-NUMBER-1/REGION-1
 
 <br/>
 
-### コマンド
+### 基本コマンド
 
 ```bash
 # アプリケーションの開始
@@ -37,13 +37,6 @@ cdk synth --no-staging
 # スタックをデプロイ
 cdk deploy
 
-
-# 変更の監視とコンパイル
-npm run watch
-
-# Jestのテストを実行
-npm run test
-
 # スタックの比較
 cdk diff
 
@@ -53,6 +46,27 @@ sam local start-api -t ./cdk.out/HelloCdkStack.template.json
 # AWS SAMを利用したLambda関数の実行
 sam local invoke MyFunction --no-event -t ./cdk.out/HelloCdkStack.template.json
 
+```
+
+<br/>
+
+### 自作コマンド
+
+```bash
+# 新規スタック追加のために以下3ファイルを作成する
+# bin/xxx-cdk.ts
+# lib/xxx/xxx-cdk-stack.ts
+# lambda/xxx/indes.mjs
+npm run add-stack
+
+# 特定のスタックのCloudFormationテンプレートを作成する
+npm run synth
+
+# binフォルダ内定義のすべてのスタックのCloudFormationテンプレートを作成する
+npm run synth-all
+
+# cdk.outフォルダ内に作成したCLoudFormationテンプレートを結合する
+npm run stack-combine
 ```
 
 <br/>
