@@ -2,7 +2,6 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { HelloCdkStack } from '../lib/hello/hello-cdk-stack';
-import { GoodbyeCdkStack } from '../lib/goodbye/goodbye-cdk-stack';
 
 const app = new cdk.App();
 new HelloCdkStack(app, 'HelloCdkStack', {
@@ -17,4 +16,3 @@ new HelloCdkStack(app, 'HelloCdkStack', {
     // env: { account: '123456789012', region: 'us-east-1' },
     /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
-new GoodbyeCdkStack(app, 'GoodbyeCdkStack', {});
