@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-// テンプレートファイルのパスを指定します
-const templatePaths = [
-    './cdk.out/HelloCdkStack.template.json',
-    './cdk.out/GoodbyeCdkStack.template.json',
-];
+// ./cdk.out/ ディレクトリ下のすべての *.template.json ファイルを取得します
+const templateFiles = fs
+    .readdirSync('./cdk.out/')
+    .filter((file) => file.endsWith('.template.json'));
+const templatePaths = templateFiles.map((file) => `./cdk.out/${file}`);
 
 let combinedTemplate = {
     Resources: {},
