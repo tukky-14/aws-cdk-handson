@@ -43,9 +43,11 @@ cdk diff
 # AWS SAMを利用したAPIエンドポイントの起動
 sam local start-api -t ./cdk.out/HelloCdkStack.template.json
 
-# AWS SAMを利用したLambda関数の実行
+# AWS SAMを利用したLambda関数の実行（eventファイルを使用しない）
 sam local invoke MyFunction --no-event -t ./cdk.out/HelloCdkStack.template.json
 
+# AWS SAMを利用したLambda関数の実行（eventファイルを使用する）
+sam local invoke -e events/event.json -t ./cdk.out/HELLOCdkStack.template.json
 ```
 
 <br/>
