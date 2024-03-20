@@ -61,5 +61,3 @@ sam local invoke MyFunction --no-event -t ./cdk.out/HelloCdkStack.template.json
 
 [AWS CDK とは](https://docs.aws.amazon.com/ja_jp/cdk/v2/guide/home.html)
 [AWS CDK 概要 (Basic #1)【AWS Black Belt】](https://www.youtube.com/watch?v=BmCpa44rAXI)
-
-sam local start-api -t ./cdk.out/ASB0001CdkStack.template.json
