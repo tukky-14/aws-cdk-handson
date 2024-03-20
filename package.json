@@ -9,7 +9,7 @@
         "watch": "tsc -w",
         "test": "jest",
         "cdk": "cdk",
-        "add-cdk": "node scripts/add-cdk.js"
+        "add-stack": "node scripts/add-stack.js"
     },
     "devDependencies": {
         "@types/jest": "^29.5.12",
