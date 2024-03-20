@@ -5,28 +5,27 @@ const path = require('path');
 const stackName = 'stack';
 
 // -------------------------------------------
-// cdk.ts ファイルの内容を定義
+// 新しいcdk.ts ファイルを作成
 // -------------------------------------------
-const cdkContent = `
-#!/usr/bin/env node
+const cdkContent = `#!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { ${stackName.toUpperCase()}CdkStack } from '../lib/${stackName}/${stackName}-cdk-stack';
 
 const app = new cdk.App();
-new ${stackName.toUpperCase()}CdkStack(app, 'HelloCdkStack', {});
+new ${stackName.toUpperCase()}CdkStack(app, '${stackName.toUpperCase()}CdkStack', {});
 `;
-fs.writeFileSync(path.resolve(__dirname, 'bin/hello-cdk.ts'), cdkContent);
+fs.writeFileSync(path.resolve(__dirname, `../bin/${stackName}-cdk.ts`), cdkContent);
 
 // -------------------------------------------
-// 新しいスタックのテンプレートを作成
+// 新しいスタックファイルを作成
 // -------------------------------------------
 const stackTemplate = `
 import * as cdk from 'aws-cdk-lib';
 import { aws_lambda as lambda } from 'aws-cdk-lib';
 import { aws_apigateway as apigateway } from 'aws-cdk-lib';
 
-export class ${stackName.toUpperCase()} extends cdk.Stack {
+export class ${stackName.toUpperCase()}CdkStack extends cdk.Stack {
     constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
@@ -57,10 +56,17 @@ export class ${stackName.toUpperCase()} extends cdk.Stack {
     }
 }
 `;
-fs.writeFileSync(path.resolve(__dirname, `${stackName}.ts`), stackTemplate);
+const stackDirPath = path.resolve(__dirname, `../lib/${stackName}`);
+if (!fs.existsSync(stackDirPath)) {
+    fs.mkdirSync(stackDirPath);
+}
+fs.writeFileSync(
+    path.resolve(__dirname, `../lib/${stackName}/${stackName}-cdk-stack.ts`),
+    stackTemplate
+);
 
 // -------------------------------------------
-// Lambda関数とディレクトリの作成
+// 新しいLambda関数ファイルを作成
 // -------------------------------------------
 const lambdaTemplate = `
 exports.handler = async function(event, context) {
@@ -69,5 +75,8 @@ exports.handler = async function(event, context) {
 }
 `;
 
-fs.mkdirSync(path.resolve(__dirname, 'lambda'));
-fs.writeFileSync(path.resolve(__dirname, `lambda/${stackName}/index.mjs`), lambdaTemplate);
+const lambdaDirPath = path.resolve(__dirname, `../lambda/${stackName}`);
+if (!fs.existsSync(lambdaDirPath)) {
+    fs.mkdirSync(lambdaDirPath);
+}
+fs.writeFileSync(path.resolve(__dirname, `../lambda/${stackName}/index.mjs`), lambdaTemplate);

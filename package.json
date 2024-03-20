@@ -2,14 +2,14 @@
     "name": "hello-cdk",
     "version": "0.1.0",
     "bin": {
-        "hello-cdk": "bin/hello-cdk.js",
-        "add-cdk": "scripts/add-cdk.js"
+        "hello-cdk": "bin/hello-cdk.js"
     },
     "scripts": {
         "build": "tsc",
         "watch": "tsc -w",
         "test": "jest",
-        "cdk": "cdk"
+        "cdk": "cdk",
+        "add-cdk": "node scripts/add-cdk.js"
     },
     "devDependencies": {
         "@types/jest": "^29.5.12",
