@@ -9,8 +9,8 @@ const rl = readline.createInterface({
 
 // ここで stackName を使用してファイルを作成します
 rl.question('新しいスタックの名前を入力してください: ', (stackName) => {
-    if (!/^[a-zA-Z0-9]+$/.test(stackName)) {
-        console.log('スタック名は英数字のみを使用できます。');
+    if (!/^[a-z0-9]+$/.test(stackName)) {
+        console.log('スタック名は小文字英数字のみを使用できます。');
         rl.close();
         return;
     }
