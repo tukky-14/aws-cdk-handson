@@ -75,10 +75,13 @@ export class ${stackName.toUpperCase()}CdkStack extends cdk.Stack {
 
     // 新しいLambda関数ファイルを作成
     const lambdaTemplate = `
-exports.handler = async function(event, context) {
-    console.log("EVENT: \\n" + JSON.stringify(event, null, 2));
-    return context.logStreamName;
-}
+export const handler = async (event) => {
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify('Hello from Lambda!'),
+    };
+    return response;
+};
 `;
 
     const lambdaDirPath = path.resolve(__dirname, `../lambda/${stackName}`);
